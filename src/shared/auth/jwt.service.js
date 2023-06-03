@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcryptjs = require('bcryptjs');
 
 const accessKey = process.env.ACCESS_KEY;
 const refreshKey = process.env.REFRESH_KEY;
@@ -28,8 +29,25 @@ function verifyRefreshToken(refreshtoken) {
     }
 }
 
+function hashPassword(password) {
+    try{
+        return bcryptjs.hashSync(password);
+    } catch (e) {
+        return e.message;
+    }
+}
+
+function comparePassword(newPassword,oldPassword) {
+    try {
+        return bcryptjs.compareSync(newPassword,oldPassword);
+    } catch (e) {
+        return e.message
+    }
+}
 module.exports = {
     generateToken,
     verifyAccessToken,
-    verifyRefreshToken
+    verifyRefreshToken,
+    hashPassword,
+    comparePassword
 }

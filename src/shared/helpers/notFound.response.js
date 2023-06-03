@@ -8,3 +8,5 @@ function notFoundResponse(res,message = 'Not found') {
     }
     res.end(JSON.stringify(resp))
 }
+
+module.exports = notFoundResponse

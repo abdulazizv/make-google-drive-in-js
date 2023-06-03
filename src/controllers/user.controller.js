@@ -1,4 +1,4 @@
-const { getUserById, getUsers} = require("../services/user.service")
+const { getUserById, getUsers, createUsers} = require("../services/user.service")
 
 async function userController(req,res) {
     if (req.method === "GET") {
@@ -12,7 +12,7 @@ async function userController(req,res) {
             await getUserById(req, res, userId);
         }
     } if(req.method === "POST") {
-
+            await createUsers(req,res)
     }
 }
 
