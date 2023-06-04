@@ -5,6 +5,8 @@ require('dotenv').config()
 const {userController} = require("./controllers/user.controller");
 const {roleController} = require("./controllers/roles.controller");
 const {folderController} = require("./controllers/folder.controller");
+const fileparser = require("./shared/fileparser/fileparser")
+
 const port = process.env.PORT || 7777;
 
 const server = http.createServer( async(req,res) => {
@@ -14,6 +16,28 @@ const server = http.createServer( async(req,res) => {
             await roleController(req,res)
     } else if(req.url.startsWith('/folder')) {
             await folderController(req,res)
+    } else if(req.url === "/api/upload" && req.method === "POST") {
+            await fileparser(req)
+                .then(data => {
+                    res.writeHead(201,{
+                        'Content-type': 'application/json utf-8'
+                    })
+                    const resp = {
+                        message:'Success',
+                        data
+                    }
+                    res.end(JSON.stringify(resp))
+                })
+                .catch(error => {
+                    res.writeHead(400,{
+                        'Content-type':'application/json'
+                    })
+                    const resp = {
+                        messsage:'An error occured',
+                        error
+                    }
+                    res.end(JSON.stringify(resp))
+                })
     }
     else {
         res.writeHead(300,{

@@ -99,5 +99,4 @@ module.exports = {
     createFolder,
     deleteFolder,
     updateFolder
-
 }

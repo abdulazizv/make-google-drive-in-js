@@ -1,4 +1,4 @@
-const { getFolder,getFolderById,createFolder,deleteFolder,updateFolder } = require("../services/folders.service")
+const { getFolder,getFolderById,createFolder,deleteFolder,updateFolder} = require("../services/folders.service")
 async function folderController(req,res) {
     if (req.method === "GET") {
         const url = new URL(req.url, `http://${req.headers.host}`);
