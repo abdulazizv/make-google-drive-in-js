@@ -7,8 +7,8 @@ async function folderController(req,res) {
         if (pathname === "/folder") {
             await getFolder(req, res);
         } else if (pathname.startsWith("/folder/")) {
-            const userId = pathname.split("/")[2];
-            await getFolderById(req, res, userId);
+            const folderId = pathname.split("/")[2];
+            await getFolderById(req, res, folderId);
         }
     }
     else if(req.method === "POST") {

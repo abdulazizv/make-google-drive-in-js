@@ -3,10 +3,10 @@ const {basicErrorhandler,notFoundResponse,getBodyData} = require("../shared/help
 const {generateToken,verifyRefreshToken,verifyAccessToken,hashPassword,comparePassword} = require('../shared/auth/jwt.service')
 
 
-async function getUserById(req,res){
+async function getUserById(req,res,userId){
     try {
         const id = req.url.split("/")[2];
-        const user = await fetch('select * from users where id = $1',id);
+        const user = await fetch('select * from users where id = $1',userId);
         if(!user) {
             notFoundResponse(res,'In table not found this id user')
         }

@@ -6,6 +6,7 @@ const {userController} = require("./controllers/user.controller");
 const {roleController} = require("./controllers/roles.controller");
 const {folderController} = require("./controllers/folder.controller");
 const fileparser = require("./shared/fileparser/fileparser")
+const { drivesController } = require("./controllers/drives.controller");
 
 const port = process.env.PORT || 7777;
 
@@ -16,7 +17,10 @@ const server = http.createServer( async(req,res) => {
             await roleController(req,res)
     } else if(req.url.startsWith('/folder')) {
             await folderController(req,res)
-    } else if(req.url === "/api/upload" && req.method === "POST") {
+    } else if(req.url.startsWith('/drive')) {
+            await drivesController(req,res)
+    }
+    else if(req.url === "/api/upload" && req.method === "POST") {
             await fileparser(req)
                 .then(data => {
                     res.writeHead(201,{

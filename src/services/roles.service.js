@@ -3,10 +3,9 @@ const {basicErrorhandler,notFoundResponse,getBodyData} = require("../shared/help
 
 
 
-async function getRoleById(req,res){
+async function getRoleById(req,res,roleId){
     try {
-        const id = req.url.split("/")[2];
-        const role = await fetch('select * from role where id = $1',id);
+        const role = await fetch('select * from role where id = $1',roleId);
         if(!role) {
             notFoundResponse(res,'In table not found this id role')
         }

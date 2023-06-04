@@ -2,10 +2,9 @@ const {fetch,fetchAll} = require("../database/connection");
 const {basicErrorhandler,notFoundResponse,getBodyData} = require("../shared/helpers/index")
 
 
-async function getFolderById(req,res){
+async function getFolderById(req,res,folderId){
     try {
-        const id = req.url.split("/")[2];
-        const folder = await fetch('select * from folder where id = $1',id);
+        const folder = await fetch('select * from folder where id = $1',folderId);
         if(!folder) {
             notFoundResponse(res,'In table not found this id folder')
         }

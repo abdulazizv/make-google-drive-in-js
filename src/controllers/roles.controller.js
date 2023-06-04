@@ -8,8 +8,8 @@ async function roleController(req,res) {
         if (pathname === "/role") {
             await getRoles(req, res);
         } else if (pathname.startsWith("/role/")) {
-            const userId = pathname.split("/")[2];
-            await getRoleById(req, res, userId);
+            const roleId = pathname.split("/")[2];
+            await getRoleById(req, res, roleId);
         }
     }
     else if(req.method === "POST") {

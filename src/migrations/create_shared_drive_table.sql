@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS sharedDrive(
+    id SERIAL PRIMARY KEY,
+    drive_id INT NOT NULL,
+    role_id INT DEFAULT 2,
+    email VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_drive FOREIGN KEY (drive_id) REFERENCES drives(id),
+    CONSTRAINT fk_role  FOREIGN KEY (role_id)  REFERENCES role(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
