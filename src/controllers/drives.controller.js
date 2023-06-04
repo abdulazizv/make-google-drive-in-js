@@ -1,5 +1,5 @@
-const {getDrivesById,getDrives} =  require("../services/drives.service");
-
+const {getDrivesById,getDrives, createDrive} =  require("../services/drives.service");
+const checkTokenMiddleware = require("../shared/middlewares/check.token.middleware")
 
 async function drivesController(req,res) {
     if (req.method === "GET") {
@@ -12,6 +12,10 @@ async function drivesController(req,res) {
             const driveId = pathname.split("/")[2];
             await getDrivesById(req, res, driveId);
         }
+    } else if(req.method === "POST") {
+            checkTokenMiddleware(req,res,async() => {
+                await createDrive(req,res)
+            })
     }
 }
 

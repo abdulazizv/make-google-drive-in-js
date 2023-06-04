@@ -6,7 +6,7 @@ function notFoundResponse(res,message = 'Not found') {
         status:"NOT found",
         message
     }
-    res.end(JSON.stringify(resp))
+    res.send(JSON.stringify(resp))
 }
 
 module.exports = notFoundResponse

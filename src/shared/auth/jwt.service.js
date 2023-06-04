@@ -16,6 +16,7 @@ async function generateToken(payload) {
 function verifyAccessToken(accesstoken) {
       try{
           const token = jwt.verify(accesstoken,accessKey);
+          return token;
       }  catch(e) {
           return e.message;
       }
@@ -24,6 +25,7 @@ function verifyAccessToken(accesstoken) {
 function verifyRefreshToken(refreshtoken) {
     try{
         const token = jwt.verify(refreshtoken,refreshKey);
+        return token
     }  catch(e) {
         return e.message;
     }
