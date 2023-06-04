@@ -8,7 +8,7 @@ function notAuthorizedResponse(res) {
         status: "Not Authorized",
         message: 'У вас нет доступа'
     }
-    res.send(JSON.stringify(resp))
+    res.end(JSON.stringify(resp))
 }
 
 module.exports = notAuthorizedResponse
