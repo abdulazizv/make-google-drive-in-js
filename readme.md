@@ -73,8 +73,4 @@ to signin email and password in body
 ${baseurl}/user/signin
 ```
 
-<div style="display: flex; gap: 5px; flex-direction: row">
-    <img src="./public/js.png">
-    <img src="./public/amazons3.png">
-    <img src="./public/posgtres.png">
-</div>
+
