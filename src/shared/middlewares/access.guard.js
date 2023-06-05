@@ -6,18 +6,42 @@ function accessGuardMiddleware(req,res,next) {
     let token;
     try {
         const auth = req.headers.authorization;
-        token = auth.split("/")[2]
+        token = auth.split(" ")[1]
     } catch(e) {
         notAuthorizedResponse(res)
     }
-    // let drives;
+    let data;
+    try {
+        data = verifyAccessToken(token)
+    } catch(e) {
+        basicErrorhandler(res,`${e.message}`)
+    }
+
+
     const drives = new Promise((resolve,reject) => {
         getFilesSpecial()
             .then((response) => resolve(response))
             .catch((error) => reject(error))
     })
-    console.log(drives);
+    drives.then((result) => {
+            if(result[0].is_opentoall || result[0].user_id == data.id) {
+                return next()
+            }
+            let isOpen = true;
+            for(let x of result) {
+                if(x.email === data.email){
+                    isOpen = false
+                }
+            }
+            if(!isOpen){
+                return next()
+            } else {
+                notAuthorizedResponse(res)
+            }
 
+    }).catch((error) => {
+        basicErrorhandler(res,`${error.message}`)
+    })
     next()
 }
 

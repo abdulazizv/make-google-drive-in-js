@@ -186,8 +186,9 @@ async function shareFileToAll(req,res) {
 async function shareFileWithEmail(req,res) {
     try {
         const body = await getBodyData(req)
-        const { email,originalName,role_id } = JSON.parse(body);
-        const data = await fetch('SELECT * FROM drives JOIN "users" user_id = users.id JOIN "folder" folder_id = folders.id WHERE awslocation_id = $1',originalName);
+        const { email,aws_locationid,role_id } = JSON.parse(body);
+        const data = await fetch('SELECT * FROM drives JOIN "users" ON drives.user_id = users.id JOIN "folder" ON drives.folder_id = folder.id WHERE awslocation_id = $1', aws_locationid);
+
 
         if (!data) {
             notFoundResponse(res,'Files not found with this filename')

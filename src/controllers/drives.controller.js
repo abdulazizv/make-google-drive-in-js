@@ -10,16 +10,18 @@ async function drivesController(req,res) {
         const pathname = url.pathname;
 
         if (pathname === "/drives") {
-            accessGuardMiddleware(req,res,async() => {
-                await getDrives(req,res)
-            })
-            // await getDrives(req, res);
+            // accessGuardMiddleware(req,res,async() => {
+            //     await getDrives(req,res)
+            // })
+            await getDrives(req, res);
         } else if (pathname.startsWith("/drives/")) {
             const driveId = pathname.split("/")[2];
             await getDrivesById(req, res, driveId);
         }
     } else if(req.url === "/drives/getawslocation/" && req.method === "GET") {
-        await getAwsByLocationId(req,res)
+        accessGuardMiddleware(req,res,async() => {
+            await getAwsByLocationId(req,res)
+        })
     } else if(req.url === "/drives/by-user" && req.method === "GET") {
         await findAllByUserId(req,res)
     } else if(req.url === "/drives/share-all" && req.method === "PATCH") {
